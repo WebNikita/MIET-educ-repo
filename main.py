@@ -42,6 +42,33 @@ def process_student_data(student_data):
 
     return student_data
 
+def save_to_csv(data, filename):
+    """
+    Запись данный в CSV формате в файл.
+
+    Args:
+    student_data (list of dict): Список словарей, каждый из которых содержить данные студентво.
+    filename (str): Имя файла для сохранения.
+    """
+
+    with open(filename, mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=data[0].keys())
+        writer.writeheader()
+        writer.writerows(data)
+
+
+def main():
+    clear_data = process_student_data(student_data)
+    save_to_csv(clear_data, "student_new.csv")
+
+    for student in clear_data:
+        if student["name"] == "Владимир" and student["surname"] == "Хадаров":
+            print(f"Ты получил {student['grade']}, за проект - {student['project_id']}")
+
+
+main()
+
+
 
 
     
