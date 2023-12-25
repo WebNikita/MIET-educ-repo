@@ -75,6 +75,28 @@ def read_csv(file_path):
     
     return student_data
 
+def insertion_sort(student_data, key):
+    """
+    Алгоритм сортировки вставками.
+
+    Args:
+        student_data (list of dict): Список словарей, каждый из которых содержить данные студентво.
+        key (str): Ключ по которому будет провилиться сортировка.
+
+    Returns:
+        student_data (list of dict): Перевернутый и отсортированый список словорей.
+    """
+
+    for i in range(1, len(student_data)):
+        current_value = student_data[i]
+        position = i
+
+        while position > 0 and student_data[position - 1][key] > current_value[key]:
+            student_data[position] =  student_data[position - 1]
+            position -= 1
+        
+    return student_data[::-1]
+
 
 def main():
     student_data_from_csv = read_csv("student_new.csv")
