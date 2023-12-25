@@ -50,24 +50,48 @@ def save_to_csv(data, filename):
     student_data (list of dict): Список словарей, каждый из которых содержить данные студентво.
     filename (str): Имя файла для сохранения.
     """
-
-    with open(filename, mode="w", newline="") as file:
+    
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=data[0].keys())
         writer.writeheader()
         writer.writerows(data)
 
+def read_csv(file_path):
+    """
+    Чтение данных из CSV файла.
+
+    Args:
+        file_path (str): Путь к файлу.
+    Returns:
+        student_data (list of dict): Список словарей, каждый из которых содержить данные студентво.
+    """
+    
+    student_data = []
+
+    with open(file_path, mode="r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            student_data.append(row)
+    
+    return student_data
+
 
 def main():
-    clear_data = process_student_data(student_data)
-    save_to_csv(clear_data, "student_new.csv")
+    student_data_from_csv = read_csv("student_new.csv")
+    print(student_data_from_csv)
+    # clear_data = process_student_data(student_data)
 
-    for student in clear_data:
-        if student["name"] == "Владимир" and student["surname"] == "Хадаров":
-            print(f"Ты получил {student['grade']}, за проект - {student['project_id']}")
+    # save_to_csv(clear_data, "student_new.csv")
+
+    # for student in clear_data:
+    #     if student["name"] == "Владимир" and student["surname"] == "Хадаров":
+    #         print(f"Ты получил {student['grade']}, за проект - {student['project_id']}")
 
 
 main()
 
+
+# {"name": "Андрей", "surname": "Попов", "grade": 5, "project_id": "1"}
 
 
 
