@@ -86,7 +86,7 @@ def insertion_sort(student_data, key):
     Returns:
         student_data (list of dict): Перевернутый и отсортированый список словорей.
     """
-
+    
     for i in range(1, len(student_data)):
         current_value = student_data[i]
         position = i
@@ -94,13 +94,41 @@ def insertion_sort(student_data, key):
         while position > 0 and student_data[position - 1][key] > current_value[key]:
             student_data[position] =  student_data[position - 1]
             position -= 1
+
+        student_data[position] = current_value
         
     return student_data[::-1]
 
 
+def print_top_students(student_data, count, student_class):
+    """
+    Вывод топ студентов.
+
+    Args:
+        student_data (list of dict): Список словарей, каждый из которых содержить данные студентво.
+        count (int): Кол-во топ студентов.
+        student_class (str): Класс студентов.
+    """
+
+    place = 1
+
+    print(f"{student_class} класс:")
+    
+    for student in student_data[:count]:
+        print(f"{place} место: {student['name'][0]}.{student['surname']}")
+        place += 1
+
+
 def main():
     student_data_from_csv = read_csv("student_new.csv")
-    print(student_data_from_csv)
+    sorted_student_data = insertion_sort(student_data_from_csv, "grade")
+    print_top_students(sorted_student_data, 3, "11")
+    
+    
+
+    
+
+
     # clear_data = process_student_data(student_data)
 
     # save_to_csv(clear_data, "student_new.csv")
